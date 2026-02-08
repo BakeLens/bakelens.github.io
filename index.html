@@ -5,39 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Primary Meta Tags -->
-  <title>Agent Shepherd - Your agent should never (try to) read your secrets</title>
+  <title>Crust - Your agent should never (try to) read your secrets</title>
   <meta name="description" content="Protect your AI agents from accessing secrets and sensitive data. Open-source, community-driven safety guardrails with near-zero latency. One command install for any agent framework.">
   <meta name="keywords" content="AI agent security, agent safety, AI guardrails, LLM security, autonomous agent protection, AI infrastructure, open source AI safety">
-  <meta name="author" content="Agent Shepherd">
+  <meta name="author" content="Crust">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://agentshepherd.ai/">
+  <link rel="canonical" href="https://getcrust.io/">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://agentshepherd.ai/">
-  <meta property="og:title" content="Agent Shepherd - Open Source AI Agent Security & Safety Infrastructure">
+  <meta property="og:url" content="https://getcrust.io/">
+  <meta property="og:title" content="Crust - Open Source AI Agent Security & Safety Infrastructure">
   <meta property="og:description" content="Protect your AI agents from accessing secrets and sensitive data. Open-source guardrails with near-zero latency. One command install.">
-  <meta property="og:image" content="https://agentshepherd.ai/og-image.png">
-  <meta property="og:site_name" content="Agent Shepherd">
+  <meta property="og:image" content="https://getcrust.io/og-image.png">
+  <meta property="og:site_name" content="Crust">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://agentshepherd.ai/">
-  <meta name="twitter:title" content="Agent Shepherd - Open Source AI Agent Security & Safety Infrastructure">
+  <meta name="twitter:url" content="https://getcrust.io/">
+  <meta name="twitter:title" content="Crust - Open Source AI Agent Security & Safety Infrastructure">
   <meta name="twitter:description" content="Protect your AI agents from accessing secrets and sensitive data. Open-source guardrails with near-zero latency. One command install.">
-  <meta name="twitter:image" content="https://agentshepherd.ai/og-image.png">
+  <meta name="twitter:image" content="https://getcrust.io/og-image.png">
 
   <!-- Schema.org Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Agent Shepherd",
+    "name": "Crust",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Linux, macOS, Windows",
     "description": "Open-source, community-driven AI agent safety infrastructure. Block destructive and unauthorized agent actions with near-zero latency guardrails.",
-    "url": "https://agentshepherd.ai/",
-    "downloadUrl": "https://github.com/AgentShepherd/agentshepherd",
+    "url": "https://getcrust.io/",
+    "downloadUrl": "https://github.com/BakeLens/crust",
     "softwareVersion": "1.0",
     "offers": {
       "@type": "Offer",
@@ -46,27 +46,32 @@
     },
     "author": {
       "@type": "Organization",
-      "name": "Agent Shepherd",
-      "url": "https://agentshepherd.ai/"
+      "name": "Crust",
+      "url": "https://getcrust.io/"
     }
   }
   </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script defer src="https://cloud.umami.is/script.js" data-website-id="a9b1a640-39e5-4098-ae7d-e163df60cbe1"></script>
   <style>
     :root {
-      --bg: #0a0a0f;
-      --fg: #e0e0e0;
-      --card: #12121a;
-      --muted: #1c1c2e;
-      --border: #2a2a3a;
-      --accent: #00cfaa;
-      --accent-secondary: #a855f7;
-      --accent-tertiary: #38bdf8;
-      --destructive: #ff3366;
+      --bg: #110e0a;
+      --bg-warm: #1a1510;
+      --fg: #ede0d4;
+      --fg-muted: #9c8b7a;
+      --card: #1e1914;
+      --card-hover: #262019;
+      --border: #3d3228;
+      --border-light: #4a3d30;
+      --amber: #e6913e;
+      --amber-light: #f0a860;
+      --amber-dim: rgba(230, 145, 62, 0.15);
+      --sand: #d4a574;
+      --rust: #c0703a;
+      --cream: #f5e6d3;
     }
 
     * {
@@ -81,21 +86,21 @@
     }
 
     body {
-      font-family: 'JetBrains Mono', monospace;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--fg);
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
+      overflow-x: hidden;
       position: relative;
     }
 
     ::selection {
-      background: rgba(0, 207, 170, 0.3);
-      color: var(--fg);
+      background: rgba(230, 145, 62, 0.3);
+      color: var(--cream);
     }
 
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 6px;
     }
 
     ::-webkit-scrollbar-track {
@@ -104,79 +109,90 @@
 
     ::-webkit-scrollbar-thumb {
       background: var(--border);
-      border-radius: 4px;
+      border-radius: 3px;
     }
 
-    /* Background image layer */
-    .shepherd-bg-wrapper {
+    /* Grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Background glow */
+    .bg-glow {
       position: fixed;
       inset: 0;
       z-index: 0;
       overflow: hidden;
     }
 
-    .shepherd-bg-image {
-      width: 100%;
-      height: 100%;
-      background-size: contain;
-      background-position: center bottom;
-      background-repeat: no-repeat;
-      background-image: url('bg.jpg');
-      filter: brightness(0.5) contrast(1.2) grayscale(0.1);
-      animation: panAndZoom 60s ease-in-out infinite alternate;
-    }
-
-    .shepherd-bg-overlay {
+    .bg-glow::before {
+      content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        to bottom,
-        rgba(10, 10, 15, 1) 0%,
-        rgba(10, 10, 15, 0.95) 40%,
-        rgba(10, 10, 15, 0.7) 70%,
-        rgba(10, 10, 15, 0.3) 90%,
-        rgba(10, 10, 15, 0) 100%
-      );
+      width: 800px;
+      height: 800px;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(230, 145, 62, 0.08) 0%, rgba(192, 112, 58, 0.03) 40%, transparent 70%);
+      animation: glow-pulse 8s ease-in-out infinite alternate;
     }
 
-    @keyframes panAndZoom {
-      0% { transform: scale(1.0) translate(0, 0); }
-      25% { transform: scale(1.05) translate(-2%, 1%); }
-      50% { transform: scale(1.08) translate(1%, -2%); }
-      75% { transform: scale(1.03) translate(-1%, 2%); }
-      100% { transform: scale(1.0) translate(0, 0); }
+    .bg-glow::after {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      bottom: -100px;
+      right: -100px;
+      background: radial-gradient(circle, rgba(212, 165, 116, 0.05) 0%, transparent 60%);
+      animation: glow-pulse 10s ease-in-out infinite alternate-reverse;
     }
 
-    /* Neural network canvas - layer on top of bg image */
-    #neural-bg {
+    @keyframes glow-pulse {
+      0% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+      100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+    }
+
+    /* Crack canvas */
+    #crack-bg {
       position: fixed;
       inset: 0;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.6;
+      opacity: 0.4;
     }
 
     /* Main container */
     .container {
       position: relative;
       z-index: 10;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 1.5rem;
-      padding-bottom: 0;
-      overflow: hidden;
+      padding: 2rem 2rem 0;
     }
 
-    /* GitHub corner link */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    /* GitHub corner */
     .github-corner {
       position: fixed;
-      top: 1rem;
-      right: 1rem;
+      top: 1.25rem;
+      right: 1.25rem;
       z-index: 100;
     }
 
@@ -186,20 +202,19 @@
       gap: 0.5rem;
       padding: 0.5rem 1rem;
       background: var(--card);
-      border: 1px solid var(--accent);
-      border-radius: 6px;
-      color: var(--accent);
-      font-size: 0.75rem;
-      font-weight: 600;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--fg-muted);
+      font-size: 0.8rem;
+      font-weight: 500;
       text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
       transition: all 0.3s ease;
     }
 
     .github-corner a:hover {
-      background: var(--accent);
-      color: var(--bg);
+      border-color: var(--amber);
+      color: var(--amber);
+      background: var(--amber-dim);
     }
 
     .github-corner svg {
@@ -207,75 +222,74 @@
       height: 16px;
     }
 
-    /* Logo / Title */
+    /* Logo */
     .logo-section {
       text-align: center;
-      margin-bottom: 1.5rem;
-      margin-top: auto;
+      margin-bottom: 1rem;
     }
 
     .title {
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-tertiary) 50%, var(--accent-secondary) 100%);
+      font-size: clamp(3.5rem, 10vw, 6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--cream);
+      position: relative;
+      line-height: 1;
+    }
+
+    .title span {
+      background: linear-gradient(135deg, var(--cream) 0%, var(--amber) 50%, var(--rust) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-shadow: none;
-      position: relative;
-      animation: neon-flicker 4s infinite alternate;
-    }
-
-    @keyframes neon-flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        filter: drop-shadow(0 0 4px var(--accent));
-      }
-      20%, 24%, 55% {
-        filter: none;
-      }
     }
 
     /* Tagline */
     .tagline {
-      font-size: clamp(1rem, 3vw, 1.5rem);
-      color: var(--fg);
-      margin-bottom: 2rem;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--fg-muted);
+      margin-bottom: 2.5rem;
       text-align: center;
-      max-width: 700px;
-      line-height: 1.6;
+      max-width: 600px;
+      line-height: 1.7;
+      font-weight: 400;
     }
 
     .tagline .highlight {
-      color: var(--accent);
+      color: var(--amber);
+      font-weight: 600;
     }
 
     .tagline .strike {
       position: relative;
-      color: var(--accent-secondary);
+      color: var(--sand);
+      opacity: 0.6;
     }
 
     .tagline .strike::after {
       content: '';
       position: absolute;
-      left: 0;
-      right: 0;
+      left: -2px;
+      right: -2px;
       top: 50%;
-      height: 2px;
-      background: var(--accent-secondary);
+      height: 1.5px;
+      background: var(--sand);
+      opacity: 0.8;
     }
 
-    /* Install section */
+    /* Install */
     .install-section {
       width: 100%;
-      max-width: 800px;
-      margin-bottom: 2rem;
+      max-width: 720px;
+      margin-bottom: 2.5rem;
     }
 
     .install-label {
-      font-size: 0.75rem;
-      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--amber);
       text-transform: uppercase;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.2em;
       margin-bottom: 0.75rem;
       display: flex;
       align-items: center;
@@ -283,42 +297,41 @@
     }
 
     .install-label::before {
-      content: '>';
-      animation: blink 1s step-end infinite;
-    }
-
-    @keyframes blink {
-      50% { opacity: 0; }
+      content: '\25B8';
+      font-size: 0.6rem;
     }
 
     .install-box {
       position: relative;
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 12px;
       padding: 1.25rem 1.5rem;
-      overflow: hidden;
+      transition: border-color 0.3s ease;
+    }
+
+    .install-box:hover {
+      border-color: var(--border-light);
     }
 
     .install-box::before {
       content: '';
       position: absolute;
-      inset: 0;
-      border-radius: 8px;
+      inset: -1px;
+      border-radius: 12px;
       padding: 1px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-tertiary), var(--accent));
-      background-size: 200% 100%;
-      animation: electric-flow 3s linear infinite;
+      background: linear-gradient(135deg, var(--amber) 0%, transparent 50%, var(--rust) 100%);
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
       pointer-events: none;
+      opacity: 0.4;
+      transition: opacity 0.3s ease;
     }
 
-    @keyframes electric-flow {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 200% 50%; }
+    .install-box:hover::before {
+      opacity: 0.7;
     }
 
     .install-command {
@@ -331,89 +344,88 @@
 
     .install-command code {
       font-family: 'JetBrains Mono', monospace;
-      font-size: clamp(0.75rem, 2vw, 0.85rem);
-      color: var(--fg);
+      font-size: clamp(0.7rem, 1.8vw, 0.8rem);
+      color: var(--fg-muted);
       white-space: nowrap;
       overflow-x: auto;
       flex: 1;
     }
 
     .install-command code .bin {
-      color: var(--accent-tertiary);
+      color: var(--amber-light);
     }
 
     .install-command code .url {
-      color: var(--accent);
+      color: var(--sand);
     }
 
     .copy-btn {
-      background: transparent;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      font-family: 'JetBrains Mono', monospace;
+      background: var(--amber-dim);
+      border: 1px solid rgba(230, 145, 62, 0.3);
+      color: var(--amber);
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
       font-size: 0.75rem;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
       flex-shrink: 0;
     }
 
     .copy-btn:hover {
-      background: var(--accent);
+      background: var(--amber);
+      border-color: var(--amber);
       color: var(--bg);
     }
 
     .copy-btn.copied {
-      background: var(--accent);
+      background: var(--amber);
+      border-color: var(--amber);
       color: var(--bg);
     }
 
-    /* Features / Info */
+    /* Features */
     .features {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
       width: 100%;
-      max-width: 800px;
-      margin-bottom: 1.5rem;
+      max-width: 720px;
+      margin-bottom: 2rem;
     }
 
     .feature {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.25rem;
+      border-radius: 12px;
+      padding: 1.5rem;
       text-align: center;
       transition: all 0.3s ease;
     }
 
     .feature:hover {
-      border-color: var(--accent);
+      border-color: var(--border-light);
+      background: var(--card-hover);
       transform: translateY(-2px);
     }
 
     .feature-icon {
-      font-size: 2rem;
+      font-size: 1.75rem;
       margin-bottom: 0.75rem;
+      display: block;
     }
 
-    .feature-icon.green { color: var(--accent); }
-    .feature-icon.cyan { color: var(--accent-tertiary); }
-    .feature-icon.pink { color: var(--accent-secondary); }
-
     .feature-title {
-      font-size: 0.875rem;
+      font-size: 0.85rem;
       font-weight: 600;
       color: var(--fg);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
 
     .feature-desc {
       font-size: 0.75rem;
-      color: #6b7280;
+      color: var(--fg-muted);
       line-height: 1.5;
     }
 
@@ -423,20 +435,43 @@
 
     /* Footer */
     .footer {
-      margin-top: auto;
       text-align: center;
+      font-size: 0.8rem;
+      color: var(--fg-muted);
+      padding: 1.5rem 2rem;
+    }
+
+    .footer .footer-tagline {
+      margin-bottom: 0.5rem;
       font-size: 0.75rem;
-      color: #6b7280;
-      padding-bottom: 1.5rem;
     }
 
     .footer a {
-      color: var(--accent);
+      color: var(--amber);
       text-decoration: none;
+      transition: opacity 0.2s;
     }
 
     .footer a:hover {
-      text-decoration: underline;
+      opacity: 0.8;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      font-size: 0.75rem;
+    }
+
+    .footer-links .sep {
+      color: var(--border);
+    }
+
+    .footer .copyright {
+      margin-top: 0.5rem;
+      font-size: 0.65rem;
+      color: var(--border-light);
     }
 
     /* Responsive */
@@ -451,37 +486,37 @@
         min-height: 100vh;
         overflow: visible;
         padding: 1rem;
-        padding-top: 3.5rem;
-        padding-bottom: 1rem;
+        padding-top: 4rem;
+        padding-bottom: 2rem;
+        justify-content: flex-start;
       }
 
       .github-corner {
-        top: 0.5rem;
-        right: 0.5rem;
+        top: 0.75rem;
+        right: 0.75rem;
       }
 
       .github-corner a {
         padding: 0.4rem 0.75rem;
-        font-size: 0.65rem;
+        font-size: 0.7rem;
       }
 
       .logo-section {
-        margin-bottom: 1rem;
-        margin-top: 0;
+        margin-bottom: 0.75rem;
+        margin-top: 2rem;
       }
 
       .title {
-        font-size: 2rem;
+        font-size: 3rem;
       }
 
       .tagline {
         font-size: 0.95rem;
-        margin-bottom: 1.25rem;
-        line-height: 1.5;
+        margin-bottom: 2rem;
       }
 
       .install-section {
-        margin-bottom: 1.25rem;
+        margin-bottom: 2rem;
       }
 
       .install-box {
@@ -510,11 +545,11 @@
       .features {
         grid-template-columns: 1fr;
         gap: 0.75rem;
-        margin-bottom: 1.25rem;
+        margin-bottom: 2rem;
       }
 
       .feature {
-        padding: 1rem;
+        padding: 1rem 1.25rem;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -528,44 +563,31 @@
         flex-shrink: 0;
       }
 
-      .feature-content {
-        flex: 1;
-      }
-
       .feature-title {
         font-size: 0.8rem;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.2rem;
       }
 
       .feature-desc {
         font-size: 0.7rem;
-        line-height: 1.4;
       }
 
       .footer {
-        padding-bottom: 1rem;
         font-size: 0.7rem;
-      }
-
-      .footer p {
-        line-height: 1.5;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Background image layer -->
-  <div class="shepherd-bg-wrapper">
-    <div class="shepherd-bg-image"></div>
-    <div class="shepherd-bg-overlay"></div>
-  </div>
+  <!-- Background glow -->
+  <div class="bg-glow"></div>
 
-  <!-- Neural network background -->
-  <canvas id="neural-bg"></canvas>
+  <!-- Crack pattern background -->
+  <canvas id="crack-bg"></canvas>
 
   <!-- GitHub corner link -->
   <div class="github-corner">
-    <a href="https://github.com/AgentShepherd/agentshepherd" target="_blank" rel="noopener">
+    <a href="https://github.com/BakeLens/crust" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
       Star on GitHub
     </a>
@@ -573,68 +595,72 @@
 
   <!-- Main content -->
   <div class="container">
-    <!-- Title -->
-    <div class="logo-section">
-      <h1 class="title">Agent Shepherd</h1>
-    </div>
+    <div class="main-content">
+      <!-- Title -->
+      <div class="logo-section">
+        <h1 class="title"><span>Crust</span></h1>
+      </div>
 
-    <!-- Tagline -->
-    <p class="tagline">
-      Your agents should <span class="highlight">never</span>
-      <span class="strike">(try to)</span>
-      read your <span class="highlight">secrets</span>
-    </p>
+      <!-- Tagline -->
+      <p class="tagline">
+        Your agents should <span class="highlight">never</span>
+        <span class="strike">(try to)</span>
+        read your <span class="highlight">secrets</span>
+      </p>
 
-    <!-- Install command -->
-    <div class="install-section">
-      <div class="install-label">Quick Install</div>
-      <div class="install-box">
-        <div class="install-command">
-          <code><span class="bin">/bin/bash</span> -c "$(curl -fsSL \<br><span class="url">https://raw.githubusercontent.com/AgentShepherd/agentshepherd/main/install.sh</span>)"</code>
-          <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+      <!-- Install command -->
+      <div class="install-section">
+        <div class="install-label">Quick Install</div>
+        <div class="install-box">
+          <div class="install-command">
+            <code><span class="bin">/bin/bash</span> -c "$(curl -fsSL \<br><span class="url">https://raw.githubusercontent.com/BakeLens/crust/main/install.sh</span>)"</code>
+            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Features -->
-    <div class="features">
-      <div class="feature">
-        <div class="feature-icon green">🛡️</div>
-        <div class="feature-content">
-          <div class="feature-title">Guardrails</div>
-          <div class="feature-desc">Block destructive and unauthorized agent actions</div>
+      <!-- Features -->
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">&#x1f6e1;&#xfe0f;</div>
+          <div class="feature-content">
+            <div class="feature-title">Guardrails</div>
+            <div class="feature-desc">Block destructive and unauthorized agent actions</div>
+          </div>
         </div>
-      </div>
-      <div class="feature">
-        <div class="feature-icon cyan">🚀</div>
-        <div class="feature-content">
-          <div class="feature-title">Near-Zero Latency</div>
-          <div class="feature-desc">High-performance Go gateway with minimal overhead</div>
+        <div class="feature">
+          <div class="feature-icon">&#x1f680;</div>
+          <div class="feature-content">
+            <div class="feature-title">Near-Zero Latency</div>
+            <div class="feature-desc">High-performance Go gateway with minimal overhead</div>
+          </div>
         </div>
-      </div>
-      <div class="feature">
-        <div class="feature-icon pink">⚡</div>
-        <div class="feature-content">
-          <div class="feature-title">Easy Setup</div>
-          <div class="feature-desc">One command install, works with any agent framework</div>
+        <div class="feature">
+          <div class="feature-icon">&#x26a1;</div>
+          <div class="feature-content">
+            <div class="feature-title">Easy Setup</div>
+            <div class="feature-desc">One command install, works with any agent framework</div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Footer -->
     <footer class="footer">
-      <p>Built for a world where AI agents assist your work, not expose your secrets.</p>
-      <p style="margin-top: 0.5rem;">
-        <a href="https://github.com/AgentShepherd/agentshepherd">GitHub</a> &middot;
-        <a href="https://agentshepherd.ai">agentshepherd.ai</a>
-      </p>
+      <p class="footer-tagline">Built for a world where AI agents assist your work, not expose your secrets.</p>
+      <div class="footer-links">
+        <a href="https://github.com/BakeLens/crust">GitHub</a>
+        <span class="sep">&middot;</span>
+        <a href="https://getcrust.io">getcrust.io</a>
+      </div>
+      <p class="copyright">&copy; 2026 Bake AI Inc.</p>
     </footer>
   </div>
 
   <script>
     // Copy command
     function copyCommand(btn) {
-      var command = '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/AgentShepherd/agentshepherd/main/install.sh)"';
+      var command = '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/BakeLens/crust/main/install.sh)"';
       navigator.clipboard.writeText(command).then(function() {
         btn.textContent = 'Copied!';
         btn.classList.add('copied');
@@ -645,185 +671,125 @@
       });
     }
 
-    // PCB Circuit Board Background
+    // Crust crack pattern background
     (function() {
-      var canvas = document.getElementById('neural-bg');
+      var canvas = document.getElementById('crack-bg');
       var ctx = canvas.getContext('2d');
-      var traces = [];
-      var pulses = [];
+      var cracks = [];
       var nodes = [];
-      var gridSize = 30;
 
       function resize() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        createCircuit();
+        generateCracks();
       }
 
-      function createCircuit() {
-        traces = [];
+      function generateCracks() {
+        cracks = [];
         nodes = [];
-        pulses = [];
 
-        var cols = Math.ceil(canvas.width / gridSize) + 1;
-        var rows = Math.ceil(canvas.height / gridSize) + 1;
+        // Create organic crack lines
+        for (var i = 0; i < 25; i++) {
+          var startX = Math.random() * canvas.width;
+          var startY = Math.random() * canvas.height;
+          var segments = [];
+          var x = startX;
+          var y = startY;
+          var angle = Math.random() * Math.PI * 2;
+          var numSegments = Math.floor(Math.random() * 8) + 3;
 
-        // Create nodes (solder pads) at grid intersections
-        for (var i = 0; i < 40; i++) {
+          segments.push({ x: x, y: y });
+
+          for (var j = 0; j < numSegments; j++) {
+            angle += (Math.random() - 0.5) * 1.2;
+            var len = Math.random() * 80 + 20;
+            x += Math.cos(angle) * len;
+            y += Math.sin(angle) * len;
+            segments.push({ x: x, y: y });
+
+            // Branch occasionally
+            if (Math.random() > 0.7) {
+              var branchAngle = angle + (Math.random() - 0.5) * 1.5;
+              var bx = x;
+              var by = y;
+              var branchSegs = [{ x: bx, y: by }];
+              for (var k = 0; k < 3; k++) {
+                branchAngle += (Math.random() - 0.5) * 0.8;
+                var blen = Math.random() * 40 + 10;
+                bx += Math.cos(branchAngle) * blen;
+                by += Math.sin(branchAngle) * blen;
+                branchSegs.push({ x: bx, y: by });
+              }
+              cracks.push({
+                path: branchSegs,
+                opacity: Math.random() * 0.04 + 0.01,
+                width: 0.5
+              });
+            }
+          }
+
+          cracks.push({
+            path: segments,
+            opacity: Math.random() * 0.06 + 0.02,
+            width: Math.random() > 0.7 ? 1.5 : 0.8
+          });
+        }
+
+        // Create nodes at intersections
+        for (var n = 0; n < 20; n++) {
           nodes.push({
-            x: Math.floor(Math.random() * cols) * gridSize,
-            y: Math.floor(Math.random() * rows) * gridSize,
-            radius: Math.random() * 3 + 2,
-            type: Math.random() > 0.7 ? 'square' : 'circle'
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 2 + 1,
+            glow: Math.random() * 0.1 + 0.05
           });
         }
-
-        // Create traces between random nodes
-        for (var j = 0; j < 60; j++) {
-          var startX = Math.floor(Math.random() * cols) * gridSize;
-          var startY = Math.floor(Math.random() * rows) * gridSize;
-          var path = [{x: startX, y: startY}];
-
-          // Generate PCB-style path (orthogonal with 45-degree turns)
-          var segments = Math.floor(Math.random() * 4) + 2;
-          var currentX = startX;
-          var currentY = startY;
-
-          for (var k = 0; k < segments; k++) {
-            var direction = Math.floor(Math.random() * 4);
-            var length = (Math.floor(Math.random() * 6) + 2) * gridSize;
-
-            if (direction === 0) currentX += length;
-            else if (direction === 1) currentX -= length;
-            else if (direction === 2) currentY += length;
-            else currentY -= length;
-
-            // Keep in bounds
-            currentX = Math.max(0, Math.min(canvas.width, currentX));
-            currentY = Math.max(0, Math.min(canvas.height, currentY));
-
-            path.push({x: currentX, y: currentY});
-          }
-
-          traces.push({
-            path: path,
-            width: Math.random() > 0.8 ? 2 : 1,
-            opacity: Math.random() * 0.06 + 0.02
-          });
-        }
-      }
-
-      function createPulse() {
-        if (traces.length === 0) return;
-        var trace = traces[Math.floor(Math.random() * traces.length)];
-        if (trace.path.length < 2) return;
-
-        pulses.push({
-          trace: trace,
-          progress: 0,
-          speed: 0.008 + Math.random() * 0.012,
-          color: Math.random() > 0.5 ? 'rgba(0, 207, 170,' : 'rgba(56, 189, 248,'
-        });
-      }
-
-      function getPointOnPath(path, progress) {
-        var totalLength = 0;
-        var lengths = [];
-
-        for (var i = 0; i < path.length - 1; i++) {
-          var dx = path[i + 1].x - path[i].x;
-          var dy = path[i + 1].y - path[i].y;
-          var len = Math.sqrt(dx * dx + dy * dy);
-          lengths.push(len);
-          totalLength += len;
-        }
-
-        var targetLength = progress * totalLength;
-        var currentLength = 0;
-
-        for (var j = 0; j < lengths.length; j++) {
-          if (currentLength + lengths[j] >= targetLength) {
-            var segmentProgress = (targetLength - currentLength) / lengths[j];
-            return {
-              x: path[j].x + (path[j + 1].x - path[j].x) * segmentProgress,
-              y: path[j].y + (path[j + 1].y - path[j].y) * segmentProgress
-            };
-          }
-          currentLength += lengths[j];
-        }
-
-        return path[path.length - 1];
-      }
-
-      function update() {
-        // Pulses removed - no moving dots
       }
 
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Draw traces
-        for (var i = 0; i < traces.length; i++) {
-          var trace = traces[i];
-          ctx.strokeStyle = 'rgba(0, 207, 170, ' + trace.opacity + ')';
-          ctx.lineWidth = trace.width;
-          ctx.lineCap = 'square';
-          ctx.lineJoin = 'miter';
+        // Draw cracks
+        for (var i = 0; i < cracks.length; i++) {
+          var crack = cracks[i];
+          ctx.strokeStyle = 'rgba(230, 145, 62, ' + crack.opacity + ')';
+          ctx.lineWidth = crack.width;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
 
           ctx.beginPath();
-          ctx.moveTo(trace.path[0].x, trace.path[0].y);
-          for (var j = 1; j < trace.path.length; j++) {
-            ctx.lineTo(trace.path[j].x, trace.path[j].y);
+          ctx.moveTo(crack.path[0].x, crack.path[0].y);
+          for (var j = 1; j < crack.path.length; j++) {
+            ctx.lineTo(crack.path[j].x, crack.path[j].y);
           }
           ctx.stroke();
         }
 
-        // Draw nodes (solder pads)
+        // Draw nodes with warm glow
         for (var k = 0; k < nodes.length; k++) {
           var node = nodes[k];
 
-          // Glow
-          var gradient = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, node.radius * 3);
-          gradient.addColorStop(0, 'rgba(0, 207, 170, 0.15)');
-          gradient.addColorStop(1, 'rgba(0, 207, 170, 0)');
+          var gradient = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, node.radius * 6);
+          gradient.addColorStop(0, 'rgba(230, 145, 62, ' + node.glow + ')');
+          gradient.addColorStop(1, 'rgba(230, 145, 62, 0)');
           ctx.fillStyle = gradient;
           ctx.beginPath();
-          ctx.arc(node.x, node.y, node.radius * 3, 0, Math.PI * 2);
+          ctx.arc(node.x, node.y, node.radius * 6, 0, Math.PI * 2);
           ctx.fill();
 
-          // Pad
-          ctx.fillStyle = 'rgba(0, 207, 170, 0.25)';
-          if (node.type === 'square') {
-            ctx.fillRect(node.x - node.radius, node.y - node.radius, node.radius * 2, node.radius * 2);
-          } else {
-            ctx.beginPath();
-            ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-            ctx.fill();
-          }
-
-          // Hole
-          ctx.fillStyle = '#0a0a0f';
+          ctx.fillStyle = 'rgba(212, 165, 116, 0.3)';
           ctx.beginPath();
-          ctx.arc(node.x, node.y, node.radius * 0.4, 0, Math.PI * 2);
+          ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
           ctx.fill();
         }
-
-        // Pulses removed - no moving dots
       }
 
-      function animate() {
-        update();
-        draw();
-        requestAnimationFrame(animate);
-      }
-
-      // Initialize
       resize();
-      animate();
+      draw();
 
-      // Handle resize
       window.addEventListener('resize', function() {
         resize();
+        draw();
       });
     })();
   </script>
